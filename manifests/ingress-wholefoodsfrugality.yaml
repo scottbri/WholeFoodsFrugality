@@ -21,4 +21,4 @@ spec:
       paths:
       - backend:
           serviceName: wholefoodsfrugality
-          servicePort: 80
+          servicePort: 8080
