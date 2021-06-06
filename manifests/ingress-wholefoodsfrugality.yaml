@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: wholefoodsfrugality
+  namespace: wholefoodsfrugality
+  labels:
+    app: wholefoodsfrugality
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-contour-cluster-issuer
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/ingress.class: contour
+    kubernetes.io/tls-acme: "true"
+spec:
+  tls:
+  - secretName: wholefoodsfrugality-tls
+    hosts:
+    - wholefoodsfrugality.app01.tanzu.bekind.io
+  rules:
+  - host: wholefoodsfrugality.app01.tanzu.bekind.io
+    http:
+      paths:
+      - backend:
+          serviceName: wholefoodsfrugality
+          servicePort: 80
