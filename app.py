@@ -5,10 +5,7 @@ import gspread
 import tabulate
 import email_sign_up
 import os
-
-
-from model import combination_file
-
+import data_pipeline
 
 from flask import Flask, request, render_template, session, redirect
 from flask import send_from_directory
@@ -27,7 +24,7 @@ def main():
     	
     	store_name = flask.request.form['store_name']
 
-    	messaged = combination_file.go(zip_code, store_name)
+    	messaged = data_pipeline.go(zip_code, store_name)
     	
     	return render_template('index.html', waiting = messaged)
 
@@ -58,11 +55,6 @@ def sign_up_sheet():
 @app.errorhandler(500)
 def pageNotFound(error):
     return flask.render_template('505.html')
-    
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'assets'),
-                          'favicon.ico',mimetype='image/vnd.microsoft.icon')
 
 if __name__ == '__main__':
     app.run()
